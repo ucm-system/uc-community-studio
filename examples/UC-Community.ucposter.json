@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "draft": {
+    "id": "0710ac40-b0d0-4669-b3d7-ccde2d33e093",
+    "name": "UC Community · 社区介绍",
+    "updatedAt": "2026-09-15T14:02:19.042Z",
+    "kind": "community",
+    "format": "portrait",
+    "titleScale": 1,
+    "community": {
+      "name": "UC Community",
+      "tagline": "AI Systems · Infrastructure · Agents",
+      "introduction": "UC Community 是面向 AI 技术与工程的内部技术社区。",
+      "focus": "聚焦 AI Systems、AI Infrastructure、LLM Serving、Cache & Storage、AI Agent 等方向，分享前沿技术、工程实践与架构思考。",
+      "series": "UC Thursday Tech Talk",
+      "english": "Every Thursday, one topic worth going deep.",
+      "chinese": "每周四，聊透一个值得讨论的 AI 技术问题。",
+      "discussion": "我们关注技术原理、真实工程问题与架构取舍，也讨论那些仍然没有标准答案的问题。",
+      "principles": "No Marketing.\nGo Deep.\nOpen Discussion.",
+      "topics": "SYSTEMS, INFRA, SERVING, CACHE, AGENTS",
+      "origin": "UC Community 源于 UCM 技术社区，并将讨论延伸到更广泛的 AI 技术栈。"
+    },
+    "event": {
+      "issue": "001",
+      "title": "从一条请求出发\n理解 KV Cache",
+      "subtitle": "LLM Serving 中的缓存复用与架构取舍",
+      "outline": "请求如何命中缓存\nKV 如何跨层存储与传输\n复用、延迟与资源开销的取舍",
+      "speaker": "主讲人姓名（示例）",
+      "role": "AI 系统工程师（示例）",
+      "avatar": "",
+      "date": "2026-09-17",
+      "start": "19:00",
+      "end": "20:00",
+      "location": "线上分享 · 会议链接待补充",
+      "qr": "",
+      "qrCaption": "扫码参与讨论",
+      "topics": "SYSTEMS, SERVING, CACHE",
+      "isSample": true
+    }
+  }
+}
