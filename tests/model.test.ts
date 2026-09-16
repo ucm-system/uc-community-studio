@@ -11,7 +11,7 @@ import {
 import { readDrafts, saveDraft, deleteDraft } from "../src/storage.ts";
 
 test("backup preserves editable content and images while creating an independent draft", () => {
-  const original = createDraft(true);
+  const original = createDraft();
   original.event.avatar = "data:image/png;base64,iVBORw0KGgo=";
   original.event.qr = original.event.avatar;
   original.community.discussion = "用户编辑后的社区理念";
@@ -33,7 +33,7 @@ test("invalid imports do not introduce remote image URLs or unknown format versi
 });
 
 test("IndexedDB keeps the last edit and separates independent drafts", async () => {
-  const first = createDraft(true),
+  const first = createDraft(),
     second = duplicateDraft(first);
   await saveDraft(first);
   await saveDraft(second);

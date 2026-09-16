@@ -8,7 +8,7 @@ interface StudioDatabase extends DBSchema {
 const database = openDB<StudioDatabase>("uc-poster-studio", 1, {
   upgrade(db) {
     const store = db.createObjectStore("drafts", { keyPath: "id" });
-    void store.add(createDraft(true));
+    void store.add(createDraft("第 001 期 · KV Cache（示例）"));
   },
 });
 

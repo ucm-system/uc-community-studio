@@ -25,7 +25,7 @@
       "title": "从一条请求出发\n理解 KV Cache",
       "subtitle": "LLM Serving 中的缓存复用与架构取舍",
       "outline": "请求如何命中缓存\nKV 如何跨层存储与传输\n复用、延迟与资源开销的取舍",
-      "speaker": "主讲人姓名（示例）",
+      "speaker": "李明（示例）",
       "role": "AI 系统工程师（示例）",
       "avatar": "",
       "date": "2026-09-17",

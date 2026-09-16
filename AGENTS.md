@@ -11,6 +11,7 @@
 - Provide community/event templates and portrait/landscape layouts. Export PNG at exactly 2880 × 3840 or 3840 × 2160; never confuse preview scale with output pixels.
 - The user authorized publishing this project to `ucm-system/uc-community-studio` and configuring GitHub Pages. The homepage lists activities, and new/edit actions open the existing editor. Keep IndexedDB and portable backups; hosting the static tool does not make activity data shared or synchronized. The local development origin remains `http://127.0.0.1:4173`.
 - GitHub Pages uses `/uc-community-studio/` as the build base. All application assets must respect `import.meta.env.BASE_URL`; navigation uses `#/edit/<id>` so editor reloads work on static hosting.
+- New activities start with complete, explicitly marked sample values from SAMPLE_EVENT. The guest-facing copy template includes blank fields plus a worked example derived from the same data. It is available from both home and editor; never overwrite existing activities or send the message automatically.
 
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 

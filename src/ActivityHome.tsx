@@ -16,6 +16,7 @@ import {
 } from "./model";
 import { Poster } from "./Poster";
 import { CommunityName, SeriesTitle } from "./BrandText";
+import { GuestBrief } from "./GuestBrief";
 import "./home.css";
 
 function PosterThumbnail({ draft }: { draft: Draft }) {
@@ -88,10 +89,13 @@ export function ActivityHome({
             </h2>
             <p className="home-description">{DEFAULT_COMMUNITY.chinese}</p>
           </div>
-          <button className="primary-button home-new" onClick={onCreate}>
-            <PlusIcon size={21} weight="bold" />
-            新建活动
-          </button>
+          <div className="home-actions">
+            <GuestBrief />
+            <button className="primary-button home-new" onClick={onCreate}>
+              <PlusIcon size={21} weight="bold" />
+              新建活动
+            </button>
+          </div>
         </section>
         <section aria-labelledby="activity-heading">
           <div className="activity-list-heading">

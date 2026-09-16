@@ -40,7 +40,7 @@ export const SAMPLE_EVENT = {
   subtitle: "LLM Serving 中的缓存复用与架构取舍",
   outline:
     "请求如何命中缓存\nKV 如何跨层存储与传输\n复用、延迟与资源开销的取舍",
-  speaker: "主讲人姓名（示例）",
+  speaker: "李明（示例）",
   role: "AI 系统工程师（示例）",
   avatar: "",
   date: "2026-09-17",
@@ -64,32 +64,16 @@ export interface Draft {
   event: typeof SAMPLE_EVENT;
 }
 
-export function createDraft(sample = false): Draft {
+export function createDraft(name = "新一期技术分享（示例）"): Draft {
   return {
     id: crypto.randomUUID(),
-    name: sample ? "第 001 期 · KV Cache（示例）" : "新一期技术分享",
+    name,
     updatedAt: new Date().toISOString(),
     kind: "event",
     format: "portrait",
     titleScale: 1,
     community: { ...DEFAULT_COMMUNITY },
-    event: sample
-      ? { ...SAMPLE_EVENT }
-      : {
-          ...SAMPLE_EVENT,
-          issue: "",
-          title: "本期分享主题",
-          subtitle: "",
-          outline: "",
-          speaker: "",
-          role: "",
-          date: "",
-          start: "",
-          end: "",
-          location: "",
-          topics: "SYSTEMS",
-          isSample: false,
-        },
+    event: { ...SAMPLE_EVENT },
   };
 }
 

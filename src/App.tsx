@@ -22,6 +22,7 @@ import { useDrafts } from "./useDrafts";
 import { download, exportPoster, findOverflow, readImage } from "./export";
 import { Poster } from "./Poster";
 import { ActivityHome } from "./ActivityHome";
+import { GuestBrief } from "./GuestBrief";
 
 function editorIdFromHash() {
   return location.hash.startsWith("#/edit/") ? location.hash.slice(7) : "";
@@ -659,6 +660,7 @@ export default function App() {
               : "尚未保存"}
         </span>
         <div className="header-actions">
+          <GuestBrief disabled={exporting} />
           <button
             className="quiet-button"
             disabled={exporting}

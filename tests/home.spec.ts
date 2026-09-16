@@ -10,7 +10,7 @@ test("home lists activities, new opens editor, hash navigation survives reload, 
   await expect(page.getByRole("heading", { name: /每期活动/ })).toBeVisible();
   await page.getByRole("button", { name: "新建活动", exact: true }).click();
   await expect(page.getByLabel("分享标题", { exact: true })).toHaveValue(
-    "本期分享主题",
+    "从一条请求出发\n理解 KV Cache",
   );
   await page
     .getByLabel("草稿名称", { exact: true })
