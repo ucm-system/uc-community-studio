@@ -1,5 +1,6 @@
-import { toBlob, getFontEmbedCSS } from "html-to-image";
+import { toBlob } from "html-to-image";
 import { FORMATS, type Draft } from "./model";
+import { embedLoadedFonts } from "./fonts";
 
 export function download(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob);
@@ -32,8 +33,6 @@ export function findOverflow(element: HTMLElement) {
   ];
 }
 
-let embeddedFonts: Promise<string> | undefined;
-
 export async function exportPoster(element: HTMLElement, draft: Draft) {
   await waitForPoster(element);
   const overflow = findOverflow(element);
@@ -45,16 +44,13 @@ export async function exportPoster(element: HTMLElement, draft: Draft) {
     throw new Error("请先填写分享标题。");
   const format = FORMATS[draft.format];
   // Embed local font files in the exported SVG; relying on OS fonts changes CJK line breaks.
-  embeddedFonts ??= getFontEmbedCSS(element).catch((error) => {
-    embeddedFonts = undefined;
-    throw error;
-  });
   const blob = await toBlob(element, {
     width: format.width,
     height: format.height,
     pixelRatio: format.pixels,
     backgroundColor: "#ffffff",
-    fontEmbedCSS: await embeddedFonts,
+    fetchRequestInit: { cache: "force-cache" },
+    fontEmbedCSS: await embedLoadedFonts(element.ownerDocument),
     style: { transform: "none", margin: "0" },
   });
   if (!blob) throw new Error("图片生成失败，请保持页面打开并再次导出。");

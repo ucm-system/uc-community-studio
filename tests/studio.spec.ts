@@ -12,7 +12,12 @@ test("all four layouts export exact 4K PNG and preserve the selected community i
 }) => {
   test.setTimeout(240_000);
   const errors: string[] = [];
+  const embeddedFonts = new Set<string>();
   page.on("pageerror", (error) => errors.push(error.message));
+  page.on("request", (request) => {
+    if (request.resourceType() === "fetch" && request.url().includes(".woff2"))
+      embeddedFonts.add(request.url());
+  });
   await page.goto("./");
   await expect(page.getByTestId("activity-card")).toHaveCount(1);
   await page.evaluate(() => document.fonts.ready);
@@ -59,6 +64,11 @@ test("all four layouts export exact 4K PNG and preserve the selected community i
       ).toBeEnabled();
     }
   }
+  const declaredFaces = await page.evaluate(
+    () => Array.from(document.fonts).length,
+  );
+  expect(embeddedFonts.size).toBeGreaterThan(0);
+  expect(embeddedFonts.size).toBeLessThan(declaredFaces);
   expect(errors).toEqual([]);
 });
 

@@ -458,6 +458,7 @@ export default function App() {
     let disposed = false;
     if (poster.current) {
       const element = poster.current;
+      setOverflow(findOverflow(element));
       void waitForPoster(element)
         .then(() => {
           if (!disposed) setOverflow(findOverflow(element));
