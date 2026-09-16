@@ -136,6 +136,9 @@ test("edit, duplicate, reload and backup/import preserve content with uploaded i
   await page
     .getByLabel("分享标题", { exact: true })
     .fill("KV Cache 的复用与传输");
+  await expect(page.locator(".preview-live")).toHaveText("实时预览", {
+    timeout: 30_000,
+  });
   await expect(page.locator(".overflow-notice")).toHaveCount(0);
   const imagePromise = page.waitForEvent("download", { timeout: 120_000 });
   await page.getByRole("button", { name: "导出 4K PNG", exact: true }).click();
@@ -164,6 +167,9 @@ test("overflow is actionable and narrow screens keep editing and export availabl
   await page
     .getByLabel("分享标题", { exact: true })
     .fill("这是一段超过合理排版空间的分享标题".repeat(12));
+  await expect(page.locator(".preview-live")).toHaveText("实时预览", {
+    timeout: 30_000,
+  });
   await expect(page.locator(".overflow-notice")).toContainText("分享标题");
   await expect(
     page.getByRole("button", { name: "导出 4K PNG", exact: true }),
@@ -171,6 +177,9 @@ test("overflow is actionable and narrow screens keep editing and export availabl
   await page
     .getByLabel("分享标题", { exact: true })
     .fill("一条请求\n一个好问题");
+  await expect(page.locator(".preview-live")).toHaveText("实时预览", {
+    timeout: 30_000,
+  });
   await expect(page.locator(".overflow-notice")).toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(

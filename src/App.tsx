@@ -19,13 +19,7 @@ import {
   type Draft,
 } from "./model";
 import { useDrafts } from "./useDrafts";
-import {
-  download,
-  exportPoster,
-  findOverflow,
-  readImage,
-  waitForPoster,
-} from "./export";
+import { download, exportPoster, findOverflow, readImage } from "./export";
 import { Poster } from "./Poster";
 import { ActivityHome } from "./ActivityHome";
 
@@ -410,6 +404,7 @@ export default function App() {
   const [area, setArea] = useState({ width: 900, height: 800 });
   const [actualSize, setActualSize] = useState(false);
   const [overflow, setOverflow] = useState<string[]>([]);
+  const [fontsLoading, setFontsLoading] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
@@ -458,14 +453,23 @@ export default function App() {
     let disposed = false;
     if (poster.current) {
       const element = poster.current;
-      setOverflow(findOverflow(element));
-      void waitForPoster(element)
+      // Force layout to start any newly needed font subsets, then measure only
+      // after font swap. Image downloads must not hold text layout checks open.
+      findOverflow(element);
+      setFontsLoading(true);
+      setOverflow([]);
+      void document.fonts.ready
         .then(() => {
-          if (!disposed) setOverflow(findOverflow(element));
+          if (!disposed) {
+            setOverflow(findOverflow(element));
+            setFontsLoading(false);
+          }
         })
         .catch(() => {
-          if (!disposed)
-            setMessage("海报素材尚未加载完整，请刷新或重新上传图片。");
+          if (!disposed) {
+            setFontsLoading(false);
+            setMessage("海报字体尚未加载完整，请刷新页面。");
+          }
         });
     }
     return () => {
@@ -668,7 +672,7 @@ export default function App() {
           <button
             className="primary-button"
             onClick={exportPng}
-            disabled={exporting || overflow.length > 0}
+            disabled={exporting || fontsLoading || overflow.length > 0}
           >
             <ArrowDownIcon size={18} />
             {exporting ? "正在生成 4K 图片…" : "导出 4K PNG"}
@@ -791,7 +795,7 @@ export default function App() {
           <div className="canvas-footer">
             <span className="preview-live">
               <span />
-              实时预览
+              {fontsLoading ? "字体加载中…" : "实时预览"}
             </span>
             <span>{format.output} PX · PNG</span>
           </div>
